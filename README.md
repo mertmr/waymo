@@ -48,3 +48,52 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## Setting up Drizzle and Supabase
+
+To integrate Drizzle and Supabase into your project, follow these steps:
+
+1. Install the required packages:
+
+   ```bash
+   npm install @supabase/supabase-js drizzle-orm
+   ```
+
+2. Create a `.env` file in the root of your project and add the following environment variables:
+
+   ```env
+   SUPABASE_URL=your-supabase-url
+   SUPABASE_KEY=your-supabase-key
+   DRIZZLE_CONFIG=your-drizzle-config
+   ```
+
+3. Create a `lib/supabaseClient.ts` file and add the following code:
+
+   ```typescript
+   import { createClient } from '@supabase/supabase-js';
+
+   const supabaseUrl = process.env.SUPABASE_URL;
+   const supabaseKey = process.env.SUPABASE_KEY;
+   const supabase = createClient(supabaseUrl, supabaseKey);
+
+   export default supabase;
+   ```
+
+4. Create a `lib/drizzleClient.ts` file and add the following code:
+
+   ```typescript
+   import { createClient } from 'drizzle-orm';
+
+   const drizzleConfig = process.env.DRIZZLE_CONFIG;
+   const drizzle = createClient(drizzleConfig);
+
+   export default drizzle;
+   ```
+
+5. Ensure that your `.gitignore` file includes the `.env` file to prevent sensitive information from being committed to your repository:
+
+   ```gitignore
+   .env
+   ```
+
+6. You can now use the Supabase and Drizzle clients in your project by importing them where needed.
